@@ -1,0 +1,22 @@
+version: "3"
+services:
+  sttapiservice:
+    image: $DOMAIN:$PORT/soboro/sttapiservice:$STT_BUILD_NUMBER
+    container_name: sttapiservice
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - /home/ubuntu/model/kospeech/:/app/model/
+      - /home/ubuntu/compose/config/sttconfig.json:/app/config.json
+    ports:
+      - 24680:24680
+    networks:
+      - front-net
+      - back-net
+
+networks:
+  back-net:
+    external: true
+  front-net:
+    external: true
